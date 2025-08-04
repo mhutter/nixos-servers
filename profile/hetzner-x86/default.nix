@@ -2,6 +2,7 @@
   pkgs,
   lib,
   modulesPath,
+  username,
   ...
 }:
 {
@@ -9,7 +10,7 @@
 
   nix.settings = {
     experimental-features = "nix-command flakes";
-    trusted-users = [ "mh" ];
+    trusted-users = [ username ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -50,7 +51,7 @@
 
   users.users = {
     root.hashedPassword = "!"; # Disable root login
-    mh = {
+    "${username}" = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
@@ -67,11 +68,10 @@
       PermitRootLogin = "no";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
-      AllowUsers = [ "mh" ];
+      AllowUsers = [ username ];
     };
   };
 
-  # networking.firewall.allowedTCPPorts = [ ];
   networking.useDHCP = true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
