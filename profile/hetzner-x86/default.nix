@@ -9,6 +9,7 @@
 
   nix.settings = {
     experimental-features = "nix-command flakes";
+    trusted-users = [ "mh" ];
   };
 
   environment.systemPackages = with pkgs; [
