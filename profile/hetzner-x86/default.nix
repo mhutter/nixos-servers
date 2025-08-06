@@ -20,7 +20,14 @@
     vim
   ];
 
-  fileSystems = {
+  documentation = {
+    enable = false;
+    man.enable = false;
+    info.enable = false;
+    doc.enable = false;
+  };
+
+  fileSystems = lib.mkDefault {
     "/" = {
       device = "/dev/disk/by-label/root";
       fsType = "ext4";
@@ -43,6 +50,7 @@
       "sr_mod"
       "ext4"
     ];
+    growPartition = true;
   };
 
   users.users = {
