@@ -5,13 +5,16 @@
 
   outputs =
     { self, nixpkgs }:
+    let
+      secrets = hostname: import ./secrets hostname;
+    in
     {
       nixosConfigurations = {
         "nix-cache" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./hosts/nix-cache ];
           specialArgs = {
-            secrets = import ./secrets.nix;
+            secrets = secrets "nix-cache";
             username = "mh";
           };
         };
