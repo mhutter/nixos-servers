@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 set -e -u -o pipefail
 
+name="$1"
+shift
 fqdn="$1"
 shift
-host="$(echo "$fqdn" | cut -d '.' -f 1)"
 
 set -x
 nixos-rebuild \
   --max-jobs auto \
   --builders "ssh://${fqdn} x86_64" \
-  --flake ".#${host}" \
+  --flake ".#${name}" \
   --sudo \
   --build-host "$fqdn" \
   --target-host "$fqdn" \
