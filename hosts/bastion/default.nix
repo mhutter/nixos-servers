@@ -8,6 +8,10 @@
 {
   imports = [ ../../profile/hetzner-x86 ];
 
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+  };
+
   networking.firewall.allowedUDPPorts = [
     config.networking.wireguard.interfaces.wg0.listenPort
   ];

@@ -1,5 +1,14 @@
 # Server NixOS configurations
 
+## How To
+
+### Adding new WireGuard hosts
+
+1. Use `./scripts/wg-rotate-psk.sh ALIAS TARGET` to generate & install a PSK
+1. Use `./scripts/wg-rotate-key.sh TARGET` to generate a key and print the public key
+1. Add the host to `./secrets/bastion.nix`
+1. Configure wireguard on TARGET
+
 ## Setup
 
 ### Hetzner Cloud
