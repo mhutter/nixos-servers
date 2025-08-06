@@ -7,10 +7,28 @@
     { self, nixpkgs }:
     let
       username = "mh";
-      secrets = hostname: import ./secrets hostname;
+
+      # Generate a nixosSystem config for a given host name
+      mkHost =
+        name:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            # set the hostname
+            ({ networking.hostName = name; })
+            # Include host-specific configuration
+            (./hosts/${name})
+          ];
+          specialArgs = {
+            inherit username;
+            secrets = import ./secrets name;
+          };
+        };
     in
     {
       nixosConfigurations = {
+        # This is a barebones "template" configuration that can be used to
+        # bootstrap new systems, or create images.
         "template-hcloud-x86" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./profile/hetzner-x86 ];
@@ -19,15 +37,7 @@
             secrets = { };
           };
         };
-
-        "nix-cache" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/nix-cache ];
-          specialArgs = {
-            inherit username;
-            secrets = secrets "nix-cache";
-          };
-        };
-      };
+      }
+      // nixpkgs.lib.genAttrs [ "bastion" "nix-cache" ] mkHost;
     };
 }

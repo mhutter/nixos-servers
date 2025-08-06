@@ -77,7 +77,10 @@
     };
   };
 
-  networking.useDHCP = true;
+  networking = {
+    useDHCP = true;
+    domain = lib.mkDefault "mhnet.dev";
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   system.stateVersion = "25.05";

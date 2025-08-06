@@ -14,12 +14,5 @@
     };
   };
 
-  networking = {
-    hostName = "nix-cache";
-    domain = "mhnet.app";
-    firewall.allowedTCPPorts = [
-      80
-      443
-    ];
-  };
+  networking.domain = "mhnet.app";
 }
