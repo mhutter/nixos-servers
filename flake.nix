@@ -22,6 +22,7 @@
           specialArgs = {
             inherit username;
             secrets = import ./secrets name;
+            configPath = self.outPath;
           };
         };
     in
