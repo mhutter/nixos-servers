@@ -6,7 +6,7 @@
 }:
 
 {
-  imports = [ ../../profile/hetzner-x86 ];
+  imports = [ ../profile/hetzner ];
 
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;

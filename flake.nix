@@ -17,11 +17,11 @@
             # set the hostname
             ({ networking.hostName = name; })
             # Include host-specific configuration
-            (./hosts/${name})
+            (./hosts/${name}.nix)
           ];
           specialArgs = {
             inherit username;
-            secrets = import ./secrets name;
+            secrets = import ./secrets.nix name;
             configPath = self.outPath;
           };
         };

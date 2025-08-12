@@ -1,7 +1,7 @@
 { secrets, configPath, ... }:
 
 {
-  imports = [ ../../profile/hetzner-x86 ];
+  imports = [ ../profile/hetzner ];
 
   system.autoUpgrade = {
     enable = true;
